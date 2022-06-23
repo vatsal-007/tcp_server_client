@@ -1,32 +1,13 @@
-const net = require('net');
-//define host and port to run the server
-const port = 8000;
-const host = '127.0.0.1';
+'use strict';
 
-//Create an instance of the server
-const server = net.createServer(onClientConnection);
-//Start listening with the server on given port and host.
-server.listen(port,host,function(){
-   console.log(`Server started on port ${port} at ${host}`); 
-});
+const fs = require('fs');
 
-//Declare connection listener function
-function onClientConnection(sock){
-    //Log when a client connnects.
-    console.log(`${sock.remoteAddress}:${sock.remotePort} Connected`);
-     //Listen for data from the connected client.
-    sock.on('data',function(data){
-        //Log data from the client
-        console.log(`${sock.remoteAddress}:${sock.remotePort} Says : ${data} `);
-        //Send back the data to the client.
-        sock.write(`You Said ${data}`);
-    });
-    //Handle client connection termination.
-    sock.on('close',function(){
-        console.log(`${sock.remoteAddress}:${sock.remotePort} Terminated the connection`);
-    });
-    //Handle Client connection error.
-    sock.on('error',function(error){
-        console.error(`${sock.remoteAddress}:${sock.remotePort} Connection Error ${error}`);
-    });
-};
+let buff = fs.readFileSync('test.png');
+let base64data = buff.toString('base64');
+
+console.log('Image converted to base 64 is:\n\n' + base64data);
+
+let buff2 = new Buffer(data, 'base64');
+fs.writeFileSync('stack-abuse-logo-out.png', buff);
+
+console.log('Base64 image data converted to file: stack-abuse-logo-out.png');
